@@ -79,6 +79,8 @@ vignettes/*.pdf
 *.docx
 *.ppt
 *.pptx
+*.rda
 
 # Directories
 docs/
+data/
