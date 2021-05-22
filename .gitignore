@@ -68,7 +68,9 @@ vignettes/*.pdf
 
 ### R.Bookdown Stack ###
 # R package: bookdown caching files
-/*_files/# Common file extensions
+/*_files/
+
+# Common file extensions
 *.pdf
 *.jpeg
 *.tiff
@@ -77,3 +79,6 @@ vignettes/*.pdf
 *.docx
 *.ppt
 *.pptx
+
+# Directories
+docs/
