@@ -8,7 +8,7 @@ source(here("code", "funs.R"))
 
 # Read and tidy data ------------------------------------------------------
 
-data <- read_xlsx(here("data", "data_LV.xlsx")) %>%
+data <- read_xlsx(here("data", "raw", "data_LV.xlsx")) %>%
   mutate(
     across(
       -c(
@@ -129,3 +129,7 @@ data_percentage_change_tmp_all <- rbind(
 # Merge all percentage change data
 data_percentage_change <- data_percentage_change %>%
   rbind(data_percentage_change_tmp_all)
+
+# Save the final data frame -----------------------------------------------
+
+save(data_percentage_change, file = here("data", "data_percentage_change.rda"))
