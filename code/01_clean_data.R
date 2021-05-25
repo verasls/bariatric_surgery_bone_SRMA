@@ -69,6 +69,9 @@ data_percentage_change <- data %>%
 # standard deviation where needed
 data_absolute <- data %>%
   filter(!is.na(mean) | !is.na(median)) %>%
+  # Remove papers from Yu et al, as they already report data as
+  # percentage change
+  filter(id %!in% c("Yu et al. (2014)", "Yu et al. (2015)")) %>%
   mutate(
     # Compute the mean from the median, 1st and 3rd quartiles
     mean = ifelse(
@@ -123,11 +126,11 @@ for (i in seq_along(time_points)) {
     ) %>%
     mutate(time_after_surgery = time_points[i], .after = id)
 }
-data_percentage_change_tmp_all <- map_dfr(percentage_change_list, rbind)
+data_percentage_change_cmp <- map_dfr(percentage_change_list, rbind)
 
 # Merge all percentage change data
 data_percentage_change <- data_percentage_change %>%
-  rbind(data_percentage_change_tmp_all)
+  rbind(data_percentage_change_cmp)
 
 # Save the final data frame -----------------------------------------------
 
