@@ -11,6 +11,7 @@ data <- read_csv(here("data", "raw", "data_all.csv")) %>%
   mutate(id = paste0(author, " et al. (", year, ")"), .before = author) %>%
   select(id, time_after_surgery, outcome = outcomes, where(is.numeric), - year)
 
+
 # Transformations to percentage change ------------------------------------
 
 # Filter only the data which is already reported as mean percentage change and
@@ -128,9 +129,58 @@ for (i in seq_along(time_points)) {
 }
 data_percentage_change_cmp <- map_dfr(percentage_change_list, rbind)
 
+# Schafer et al. (2018) reports body composition data as absolute change
+# Need to transform to percentage change
+schafer_2018_tmp <- data %>%
+  filter(
+    id == "Schafer et al. (2018)" &
+    outcome %in% c("BMI", "body_mass", "fat_mass", "lean_mass")
+  ) %>%
+  # Unite absolute baseline values and absolute changes at follow-up
+  # into single variables (for mean and sd) in order to pivot wider this
+  # data.frame and compute the percentage change
+  mutate(
+    X = ifelse(is.na(mean), mean_change, mean),
+    SD = ifelse(is.na(sd), sd_change, sd)
+  ) %>%
+  select(id, time_after_surgery, outcome, n, X, SD) %>%
+  pivot_wider(
+    names_from = time_after_surgery,
+    values_from = c(n, X, SD)
+  ) %>%
+  # Compute the percentage change
+  mutate(
+    mean_percent_change_6 = (X_6 / X_0) * 100,
+    mean_percent_change_12 = (X_12 / X_0) * 100,
+    sd_percent_change_6 = SD_6 / SD_0,
+    sd_percent_change_12 = SD_12 / SD_0
+  ) %>%
+  select(id, outcome, starts_with(c("mean_p", "sd_p")))
+schafer_2018_6 <- schafer_2018_tmp %>%
+  select(
+    id, outcome,
+    mean_percent_change = mean_percent_change_6,
+    sd_percent_change = sd_percent_change_6
+  ) %>%
+  mutate(
+    time_after_surgery = 6, .after = id
+  )
+schafer_2018_12 <- schafer_2018_tmp %>%
+  select(
+    id, outcome,
+    mean_percent_change = mean_percent_change_12,
+    sd_percent_change = sd_percent_change_12
+  ) %>%
+  mutate(
+    time_after_surgery = 12, .after = id
+  )
+schafer_2018 <- rbind(schafer_2018_6, schafer_2018_12) %>%
+  mutate(n = 45, .after = outcome)
+
 # Merge all percentage change data
 data_percentage_change <- data_percentage_change %>%
-  rbind(data_percentage_change_cmp)
+  rbind(data_percentage_change_cmp, schafer_2018) %>%
+  arrange(id, time_after_surgery, outcome)
 
 # Save the final data frame -----------------------------------------------
 
