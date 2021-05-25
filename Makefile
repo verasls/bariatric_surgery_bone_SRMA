@@ -1,8 +1,8 @@
 ## data     : Processes the raw data
 data: data/data_percentage_change.rda
 
-data/data_percentage_change.rda: data/raw/data_LV.xlsx code/01_tidy_data.R
-	R CMD BATCH code/01_tidy_data.R
+data/data_percentage_change.rda: data/raw/data_all.csv code/01_clean_data.R
+	R CMD BATCH code/01_clean_data.R
 
 ## install  : Installs all necessary packages
 install:
