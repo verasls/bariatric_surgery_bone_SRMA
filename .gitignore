@@ -80,6 +80,7 @@ vignettes/*.pdf
 *.ppt
 *.pptx
 *.rda
+*.html
 
 # Directories
 docs/
