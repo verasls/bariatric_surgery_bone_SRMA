@@ -194,49 +194,8 @@ data_absolute_change_1 <- data %>%
   na.omit()
 
 # 2nd criterion to have absolute change data:
-# Data reported as percentage change and with absolute values at baseline
-#
-# Who has percentage change data
-pc <- data_percentage_change %>%
-  # Create a variable to identify the observation
-  mutate(ID = paste(id, outcome))
-# Who has absolute values at baseline
-ab <- data %>%
-  filter(time_after_surgery == 0 & !is.na(mean)) %>%
-  # Create a variable to identify the observation
-  mutate(ID = paste(id, outcome))
-# Get the intersection
-intersection <- intersect(pc$ID, ab$ID)
-# Select required baseline data
-data_baseline_abs <- data %>%
-  mutate(ID = paste(id, outcome)) %>%
-  filter(ID %in% intersection & time_after_surgery == 0) %>%
-  select(id, time_after_surgery, outcome, mean, sd)
-# Select percentage change data and join with baseline data
-data_absolute_change_2 <- data_percentage_change %>%
-  mutate(ID = paste(id, outcome)) %>%
-  filter(ID %in% intersection) %>%
-  full_join(data_baseline_abs, by = c("id", "outcome")) %>%
-  select(
-    id, time_after_surgery = time_after_surgery.x, outcome, n,
-    mean_percent_change, sd_percent_change,
-    mean_baseline = mean,
-    sd_baseline = sd
-  ) %>%
-  # Compute absolute change
-  mutate(
-    mean_post = mean_percent_change / 100 * mean_baseline + mean_baseline,
-    mean_absolute_change = mean_post - mean_baseline,
-    sd_absolute_change = sd_percent_change * sd_baseline
-  ) %>%
-  select(
-    id, time_after_surgery, outcome, n,
-    mean_absolute_change, sd_absolute_change
-  )
-
-# 3rd criterion to have absolute change data:
 # Data reported as absolute values at baseline and post surgery
-data_absolute_change_3_tmp <- data %>%
+data_absolute_change_2_tmp <- data %>%
   filter(
     !is.na(mean) | !is.na(sd) |
     !is.na(median) | !is.na(iqr_lower) | !is.na(iqr_upper)
@@ -255,12 +214,12 @@ data_absolute_change_3_tmp <- data %>%
   ) %>%
   select(id, time_after_surgery, outcome, n, mean, sd)
 # Create a vector of the time points from all the studies and remove baseline
-time_points <- sort(unique(data_absolute_change_3_tmp$time_after_surgery))[- 1]
+time_points <- sort(unique(data_absolute_change_2_tmp$time_after_surgery))[- 1]
 # Create an empty list to accomodate the data
 absolute_change_list <- vector("list", length(time_points))
 # Compute the absolute change for each time point
 for (i in seq_along(time_points)) {
-  absolute_change_list[[i]] <- data_absolute_change_3_tmp %>%
+  absolute_change_list[[i]] <- data_absolute_change_2_tmp %>%
     filter(time_after_surgery %in% c(0, time_points[i])) %>%
     pivot_wider(
       names_from = time_after_surgery,
@@ -280,11 +239,11 @@ for (i in seq_along(time_points)) {
     ) %>%
     mutate(time_after_surgery = time_points[i], .after = id)
 }
-data_absolute_change_3 <- map_dfr(absolute_change_list, rbind)
+data_absolute_change_2 <- map_dfr(absolute_change_list, rbind)
 
 # Merge all absolute change data
 data_absolute_change <- data_absolute_change_1 %>%
-  rbind(data_absolute_change_2, data_absolute_change_3) %>%
+  rbind(data_absolute_change_2) %>%
   arrange(id, time_after_surgery, outcome)
 
 # Save the final data frames ----------------------------------------------
