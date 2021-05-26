@@ -1,3 +1,9 @@
+## report   : Renders the .Rmd files
+report: Rmd/data_transformations.html
+
+Rmd/data_transformations.html: Rmd/data_transformations.Rmd data/raw/data_all.csv code/01_clean_data.R
+	Rscript -e 'rmarkdown::render("$<")'
+
 ## data     : Processes the raw data
 data: data/data_percentage_change.rda
 
@@ -14,7 +20,7 @@ clean:
 
 ## cleanall : Removes auto-generated files, including processed data and figures
 cleanall:
-	\rm -f *.Rout .Rdata data/*.rda figures/*.tiff figures/*.png
+	\rm -f *.Rout .Rdata data/*.rda figures/*.tiff figures/*.png Rmd/*.html
 
 .PHONY : help
 help : Makefile
