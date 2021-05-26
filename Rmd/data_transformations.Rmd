@@ -1,0 +1,124 @@
+---
+title: Data transformations
+author: "Lucas Veras"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    number_sections: true
+    toc_float: 
+      collapsed: true
+    highlight: tango
+    df_print: paged
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r source, eval = TRUE, echo = FALSE, include = FALSE}
+library(here)
+source(here("code", "01_clean_data.R"))
+```
+
+# Basic transformations
+
+To run the meta-analysis of longitudinal data, the values needed are the mean and standard deviation of the change score (pre-post data), either in absolute or percentage values. Nevertheless, the studies report not only the mean and standard deviation, but a series of other central tendency and dispersion measures, that ought to be transformed prior to running a meta-analysis.
+
+In this section it will be covered the transformations from other central tendency measures to the mean and from other dispersion measures to the standard deviation.
+
+## Central tendency measures
+
+Among the studies selected to the meta-analysis the reported central tendency measures were the mean and the median.
+
+### From median to mean
+
+$$ \bar{X} = \frac{Q_1 + \tilde{X} + Q_3}{3} $$
+
+Where $\bar{X}$ is the sample mean, $\tilde{X}$ is the median and $Q_1$ and $Q_3$ are the 1st and 3rd quartiles, respectively.
+
+This transformation was proposed in the paper Wan et al. BMC Medical Research Methodology 2014, 14:135.
+
+## Dispersion measures
+
+The dispersion measures reported in the studies were the standard error of the mean, the interquartile range, and the confidence interval.
+
+### From standard error to standard deviation
+
+$$ s = SE\cdot\sqrt{n} $$
+
+Where $s$ is the standard deviation, $SE$ is the standard error and $n$ is the sample size.
+
+### From interquartile range to standard deviation
+
+$$ s = \frac{Q_3 - Q_1}{2\phi^{-1}(\frac{0.75n-0.125}{n+0.25})} $$
+
+Where $s$ is the standard deviation, $Q_1$ and $Q_3$ are the 1st and 3rd quartiles, respectively, $n$ is the sample size and $\phi{-1}$ is the inverse of the quantile function of the normal distribution.
+
+This transformation was proposed in the paper Wan et al. BMC Medical Research Methodology 2014, 14:135.
+
+### From the confidence interval to the standard deviation
+
+The confidence interval is defined as:
+
+$$ CI = \bar{X} \pm t_{df}\frac{s}{\sqrt{n}} $$
+
+Where $CI$ is the confidence interval, $s$ is the standard deviation, $n$ is the sample size and $t_{df}$ is the quantile of the $t$ distribution with $n - 1$ degrees of freedom ($df$).
+
+The "margin of error" $t_{df}\frac{s}{\sqrt{n}}$ is added and subtracted from the mean value to calculate the confidence interval, and therefore, it corresponds to half the width of the confidence interval. So:
+
+$$ \frac{CI_{upper} - CI_{lower}}{2} = t_{df}\frac{s}{\sqrt{n}} $$
+$$ s = \frac{(CI_{upper} - CI_{lower}) \cdot \sqrt{n}}{2t_{df}} $$
+
+# Transformations to percentage change
+
+To run a meta-analysis with the percentage change, its mean and standard deviation are needed.
+
+To calculate the mean percentage change based on the absolute values:
+
+$$ \bar{X}_{\%\ change} = \frac{\bar{X}_{post} - \bar{X}_{pre}}{\bar{X}_{pre}} \cdot 100 $$
+
+Where $\bar{X}_{\%\ change}$ is the mean percentage change and $\bar{X}_{pre}$ and $\bar{X}_{post}$ are the means of the pre and post scores, respectively.
+
+And to calculate the standard deviation of the mean percentage change:
+
+$$ s_{\%\ change} = \frac{s_{mean\ change}}{s_{pre}} $$
+$$ s_{mean\ change} = \sqrt{s^2_{pre} + s^2_{post} - 2 \cdot r \cdot s_{pre} \cdot s_{post}} $$
+
+Where $s_{\%\ change}$ is the standard deviation of the mean percentage change, $s_{mean\ change}$ is the standard deviation of the absolute mean change, $s_{pre}$ and $s_{post}$ are the standard deviation of the pre and post scores, respectively, and $r$ is the correlation coefficient between the pre and post scores.
+
+Below is a list of the variables, per study, that needed this transformation.
+
+```{r abs_to_pct, echo = FALSE}
+abs_to_pct <- data %>%
+  filter(!is.na(mean) | !is.na(median)) %>%
+  # Remove papers from Yu et al, as they already report data as
+  # percentage change
+  filter(id %!in% c("Yu et al. (2014)", "Yu et al. (2015)")) %>%
+  filter(time_after_surgery == 0) %>%
+  select(Study = id, Variable = outcome)
+abs_to_pct
+```
+
+# Transformations to absolute change
+
+As with the percentage change, to use the absolute change, its mean and standard deviation is needed.
+
+To compute the mean absolute change, simply:
+
+$$ \bar{X}_{mean\ change} = \bar{X}_{post} - \bar{X}_{pre} $$
+
+Where $\bar{X}_{mean\ change}$, $\bar{X}_{pre}$ and $\bar{X}_{post}$ are the mean absolute change and the means of the pre and post scores, respectively.
+
+The computation of the standard deviation of the mean absolute change was already defined in the previous section.
+
+Below is a list of the variables, per study, that needed this transformation.
+
+```{r abs_to_chn, echo = FALSE}
+abs_to_chn <- data %>%
+  filter(
+    !is.na(mean) | !is.na(sd) |
+    !is.na(median) | !is.na(iqr_lower) | !is.na(iqr_upper)
+  ) %>%
+  filter(time_after_surgery == 0) %>%
+  select(Study = id, Variable = outcome)
+abs_to_chn
+```
