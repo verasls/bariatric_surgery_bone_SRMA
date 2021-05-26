@@ -15,7 +15,7 @@ data <- read_csv(here("data", "raw", "data_all.csv")) %>%
 
 # Filter only the data which is already reported as mean percentage change and
 # compute the standard deviation where needed
-data_percentage_change <- data %>%
+data_percentage_change_1 <- data %>%
   filter(!is.na(mean_percent_change)) %>%
   mutate(
     # Compute the SEM percentage change as a single value
@@ -69,6 +69,7 @@ data_percentage_change <- data %>%
 # standard deviation where needed
 data_absolute <- data %>%
   filter(!is.na(mean) | !is.na(median)) %>%
+  filter(is.na(mean_percent_change)) %>%
   # Remove papers from Yu et al, as they already report data as
   # percentage change
   filter(id %!in% c("Yu et al. (2014)", "Yu et al. (2015)")) %>%
@@ -177,7 +178,7 @@ schafer_2018 <- rbind(schafer_2018_6, schafer_2018_12) %>%
   mutate(n = 45, .after = outcome)
 
 # Merge all percentage change data
-data_percentage_change <- data_percentage_change %>%
+data_percentage_change <- data_percentage_change_1 %>%
   rbind(data_percentage_change_cmp, schafer_2018) %>%
   arrange(id, time_after_surgery, outcome)
 
