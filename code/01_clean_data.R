@@ -180,7 +180,8 @@ schafer_2018 <- rbind(schafer_2018_6, schafer_2018_12) %>%
 # Merge all percentage change data
 data_percentage_change <- data_percentage_change_1 %>%
   rbind(data_percentage_change_cmp, schafer_2018) %>%
-  arrange(id, time_after_surgery, outcome)
+  arrange(id, time_after_surgery, outcome) %>%
+  select(study = id, everything())
 
 # Transformations to absolute change --------------------------------------
 
@@ -245,7 +246,8 @@ data_absolute_change_2 <- map_dfr(absolute_change_list, rbind)
 # Merge all absolute change data
 data_absolute_change <- data_absolute_change_1 %>%
   rbind(data_absolute_change_2) %>%
-  arrange(id, time_after_surgery, outcome)
+  arrange(id, time_after_surgery, outcome) %>%
+  select(study = id, everything())
 
 # Save the final data frames ----------------------------------------------
 
