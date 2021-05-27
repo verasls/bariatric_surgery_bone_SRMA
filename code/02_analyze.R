@@ -10,67 +10,81 @@ library(ragg)
 
 load(here("data", "data_percentage_change.rda"))
 
-R_vBMD <- data_percentage_change %>%
-  filter(outcome == "radius_vBMD") %>%
-  filter(time_after_surgery %in% c(12, 24, 48, 9))
-R_vBMD <- R_vBMD[c(1:7, 9), ]
-
-# Meta-analysis -----------------------------------------------------------
-
-# Calculate effect size
-R_vBMD_e_ess <- escalc(
-  measure = "MN",
-  mi = mean_percent_change,
-  sdi = sd_percent_change,
-  ni = n,
-  data = R_vBMD,
-  slab = id
-)
-
-# Run model
-R_vBMD_model <- rma(yi, vi, data = R_vBMD_es)
-
-# Forest plot
-agg_tiff(
-  here("figures", "test.tiff"),
-  width = 25,
-  height = 15,
-  units = "cm",
-  res = 200
-)
-forest(
-  R_vBMD_model,
-  header = TRUE,
-  showweights = TRUE,
-  xlab = "Mean percentage change",
-  mlab = "Random effects model"
-)
-text(18, 10, font = 2, cex = 1, "Weight (%)")
-# Heterogeneity text
-text(
-  -45.3, -1.5, pos = 4, cex = 0.75,
-  bquote(
-    paste(
-      "Heterogeneity: ",
-      I^2, " = ",
-      .(formatC(R_vBMD_model$I2, digits = 2, format = "f")), "%, ",
-      tau^2, " = ",
-      .(formatC(R_vBMD_model$tau2, digits = 2, format = "f")), ", ",
-      italic(.("p")), " < 0.001"
-    )
+# Create a variable to indicate which observations come from the same sample
+studies <- unique(data_percentage_change$study)
+data_percentage_change <- data_percentage_change %>%
+  mutate(
+    sample = as.numeric(as.factor(study)),
+    sample = ifelse(
+      study == "Yu et al. (2014)" |
+      study == "Yu et al. (2015)",
+      which(studies == "Lindeman et al. (2018)"),
+      ifelse(
+        study == "Shanbhogue et al. (2017)" |
+        study == "Hansen et al. (2020)",
+        which(studies == "Frederiksen et al. (2016)"),
+        sample
+      )
+    ),
+    .after = study
   )
+
+# Separate the variables into smaller data.frames
+# HR-pQCT variables
+radius_vBMD <- data_percentage_change %>%
+  filter(outcome == "radius_vBMD")
+tibia_vBMD <- data_percentage_change %>%
+  filter(outcome == "tibia_vBMD")
+
+# Primary analysis --------------------------------------------------------
+
+# Radius vBMD
+#
+# Calculate the effect size
+radius_vBMD <- radius_vBMD %>%
+  escalc(
+    measure = "MN",
+    mi = mean_percent_change,
+    sdi = sd_percent_change,
+    ni = n,
+    data = .
+  ) %>%
+  as_tibble()
+
+# Multilevel meta-analysis model
+radius_vBMD_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  data = radius_vBMD
 )
-# Overall effect text
-text(
-  -45.3, -1.9, pos = 4, cex = 0.75,
-  bquote(
-    paste(
-      "Test for overall effect: ",
-      "z = ",
-      .(formatC(R_vBMD_model$zval, digits = 2, format = "f")), ", ",
-      italic(.("p")), " = ",
-      .(formatC(R_vBMD_model$pval, digits = 3, format = "f"))
-    )
-  )
+
+# Tibia vBMD
+#
+# Calculate the effect size
+tibia_vBMD <- tibia_vBMD %>%
+  escalc(
+    measure = "MN",
+    mi = mean_percent_change,
+    sdi = sd_percent_change,
+    ni = n,
+    data = .
+  ) %>%
+  as_tibble()
+
+# Multilevel meta-analysis model
+tibia_vBMD_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  data = tibia_vBMD
 )
-dev.off()
+
+# Save the meta-analysis objects ------------------------------------------
+
+if (!dir.exists(here("output"))) {
+  dir.create(here("output"))
+}
+save(
+  radius_vBMD, radius_vBMD_model,
+  tibia_vBMD, tibia_vBMD_model,
+  file = here("output", "ma_objects.rda")
+)
