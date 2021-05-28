@@ -2,9 +2,7 @@
 
 library(here)
 library(tidyverse)
-library(lvmisc)
 library(metafor)
-library(ragg)
 
 # Read and tidy data ------------------------------------------------------
 
@@ -35,6 +33,11 @@ radius_vBMD <- data_percentage_change %>%
   filter(outcome == "radius_vBMD")
 tibia_vBMD <- data_percentage_change %>%
   filter(outcome == "tibia_vBMD")
+# QCT variables
+LS_vBMD <- data_percentage_change %>%
+  filter(outcome == "LS_vBMD")
+TH_vBMD <- data_percentage_change %>%
+  filter(outcome == "TH_vBMD")
 
 # Primary analysis --------------------------------------------------------
 
@@ -78,6 +81,80 @@ tibia_vBMD_model <- rma.mv(
   data = tibia_vBMD
 )
 
+# Lumbar spine vBMD
+#
+# Calculate the effect size
+LS_vBMD <- LS_vBMD %>%
+  escalc(
+    measure = "MN",
+    mi = mean_percent_change,
+    sdi = sd_percent_change,
+    ni = n,
+    data = .
+  ) %>%
+  as_tibble()
+
+# Multilevel meta-analysis model
+LS_vBMD_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  data = LS_vBMD
+)
+
+# Total hip vBMD
+#
+# Calculate the effect size
+TH_vBMD <- TH_vBMD %>%
+  escalc(
+    measure = "MN",
+    mi = mean_percent_change,
+    sdi = sd_percent_change,
+    ni = n,
+    data = .
+  ) %>%
+  as_tibble()
+
+# Multilevel meta-analysis model
+TH_vBMD_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  data = TH_vBMD
+)
+
+# Meta-regression: time effect --------------------------------------------
+
+# Radius vBMD
+radius_vBMD_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = radius_vBMD
+)
+
+# Tibia vBMD
+tibia_vBMD_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_vBMD
+)
+
+# Lumbar spine vBMD
+LS_vBMD_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = LS_vBMD
+)
+
+# Total hip vBMD
+TH_vBMD_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = TH_vBMD
+)
+
 # Save the meta-analysis objects ------------------------------------------
 
 if (!dir.exists(here("output"))) {
@@ -86,5 +163,11 @@ if (!dir.exists(here("output"))) {
 save(
   radius_vBMD, radius_vBMD_model,
   tibia_vBMD, tibia_vBMD_model,
+  LS_vBMD, LS_vBMD_model,
+  TH_vBMD, TH_vBMD_model,
   file = here("output", "ma_objects.rda")
+)
+save(
+  radius_vBMD_time_model,
+  file = here("output", "meta_regression.rda")
 )
