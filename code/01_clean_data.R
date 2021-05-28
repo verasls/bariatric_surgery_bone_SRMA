@@ -16,8 +16,14 @@ data <- read_csv(here("data", "raw", "data_all.csv")) %>%
 # Filter only the data which is already reported as mean percentage change and
 # compute the standard deviation where needed
 data_percentage_change_1 <- data %>%
-  filter(!is.na(mean_percent_change)) %>%
+  filter(!is.na(mean_percent_change) | !is.na(median_percent_change)) %>%
   mutate(
+    # Compute the mean percentage change from the median (only Ivaska 2017)
+    mean_percent_change = ifelse(
+      !is.na(median_percent_change),
+      compute_mean(median_percent_change, iqr_percent_lower, iqr_percent_upper),
+      mean_percent_change
+    ),
     # Compute the SEM percentage change as a single value
     sem_percent_change = ifelse(
       # When both lower and upper limits are available
@@ -36,7 +42,7 @@ data_percentage_change_1 <- data %>%
         )
       )
     ),
-    # Compute the standard deviation of the percentage change
+    # Compute the standard deviation of the mean percentage change
     sd_percent_change = ifelse(
       # From the standard error of the mean
       !is.na(mean_percent_change) &
@@ -56,7 +62,16 @@ data_percentage_change_1 <- data %>%
           !is.na(mean_percent_change) &
           !is.na(sd_percent_lower),
           mean_percent_change - sd_percent_lower,
-          sd_percent_change
+          ifelse(
+      # From the interquartile range (only Ivaska 2017)
+            !is.na(iqr_percent_lower) &
+            !is.na(iqr_percent_upper),
+            compute_sd(
+              from = "iqr", n,
+              x_lower = iqr_percent_lower, x_upper = iqr_percent_upper
+            ),
+            sd_percent_change
+          )
         )
       )
     )
