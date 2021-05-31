@@ -31,22 +31,22 @@ forest(
 )
 # Plot title
 text(
-  -65.5, 17.5, font = 2, pos = 4, cex = 1,
+  -65.5, 14.5, font = 2, pos = 4, cex = 1,
   "Radius volumetric bone mineral density"
 )
 # Follow-up time column
-text(-31, 16, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
+text(-31, 13, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
 followup_text(radius_vBMD, -32)
 # Sample size column
-text(-27, 16, font = 2, pos = 2, cex = 1, "n")
+text(-27, 13, font = 2, pos = 2, cex = 1, "n")
 n_text(radius_vBMD, -27)
 # Weight column
-text(14, 16, font = 2, pos = 2, cex = 1, "Weight")
+text(14, 13, font = 2, pos = 2, cex = 1, "Weight")
 weights_text(radius_vBMD_model, 14)
-text(14, -1, font = 1, pos = 2, cex = 1, "100%")
+text(14, -1, font = 1, pos = 2, cex = 1, "100.0%")
 # Heterogeneity text
 text(
-  -64.9, -1.65, pos = 4, cex = 0.7,
+  -64.9, -1.6, pos = 4, cex = 0.7,
   bquote(
     paste(
       "Heterogeneity: ",
@@ -60,7 +60,7 @@ text(
 )
 # Overall effect text
 text(
-  -64.9, -2.15, pos = 4, cex = 0.7,
+  -64.9, -2.0, pos = 4, cex = 0.7,
   bquote(
     paste(
       "Test for overall effect: ",
@@ -94,22 +94,22 @@ forest(
 )
 # Plot title
 text(
-  -65.5, 16.5, font = 2, pos = 4, cex = 1,
+  -65.5, 13.5, font = 2, pos = 4, cex = 1,
   "Tibia volumetric bone mineral density"
 )
 # Follow-up time column
-text(-31, 15, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
+text(-31, 12, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
 followup_text(tibia_vBMD, -32)
 # Sample size column
-text(-27, 15, font = 2, pos = 2, cex = 1, "n")
+text(-27, 12, font = 2, pos = 2, cex = 1, "n")
 n_text(tibia_vBMD, -27)
 # Weight column
-text(14, 15, font = 2, pos = 2, cex = 1, "Weight")
+text(14, 12, font = 2, pos = 2, cex = 1, "Weight")
 weights_text(tibia_vBMD_model, 14)
-text(14, -1, font = 1, pos = 2, cex = 1, "100%")
+text(14, -1, font = 1, pos = 2, cex = 1, "100.0%")
 # Heterogeneity text
 text(
-  -64.9, -1.65, pos = 4, cex = 0.7,
+  -64.9, -1.6, pos = 4, cex = 0.7,
   bquote(
     paste(
       "Heterogeneity: ",
@@ -123,7 +123,7 @@ text(
 )
 # Overall effect text
 text(
-  -64.9, -2.15, pos = 4, cex = 0.7,
+  -64.9, -2.0, pos = 4, cex = 0.7,
   bquote(
     paste(
       "Test for overall effect: ",
@@ -168,7 +168,7 @@ n_text(LS_vBMD, -27)
 # Weight column
 text(34, 12, font = 2, pos = 2, cex = 1, "Weight")
 weights_text(LS_vBMD_model, 34)
-text(34, -1, font = 1, pos = 2, cex = 1, "100%")
+text(34, -1, font = 1, pos = 2, cex = 1, "100.0%")
 # Heterogeneity text
 text(
   -69.9, -1.5, pos = 4, cex = 0.7,
@@ -230,7 +230,7 @@ n_text(TH_vBMD, -27)
 # Weight column
 text(34, 5, font = 2, pos = 2, cex = 1, "Weight")
 weights_text(TH_vBMD_model, 34)
-text(34, -1, font = 1, pos = 2, cex = 1, "100%")
+text(34, -1, font = 1, pos = 2, cex = 1, "100.0%")
 # Heterogeneity text
 text(
   -69.9, -1.38, pos = 4, cex = 0.7,
