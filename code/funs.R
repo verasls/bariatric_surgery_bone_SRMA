@@ -96,7 +96,7 @@ weights_text <- function(model, x) {
   for (i in seq(length(w), 1, -1)) {
     text(
       x, i, font = 1, pos = 2, cex = 1,
-      paste0(round(w[k - i], 0), "%")
+      paste0(broman::myround(w[k - i], 1), "%")
     )
   }
 }
