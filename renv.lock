@@ -51,6 +51,13 @@
       "Repository": "CRAN",
       "Hash": "e031418365a7f7a766181ab5a41a5716"
     },
+    "RPushbullet": {
+      "Package": "RPushbullet",
+      "Version": "0.3.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "0b600e4308115126387df20181e731d2"
+    },
     "Rcpp": {
       "Package": "Rcpp",
       "Version": "1.0.6",
@@ -92,6 +99,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "9addc7e2c5954eca5719928131fed98c"
+    },
+    "broman": {
+      "Package": "broman",
+      "Version": "0.72-4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "925c2b0b19b86c17732bfed4d11b3e64"
     },
     "broom": {
       "Package": "broom",
@@ -443,12 +457,24 @@
       "Repository": "CRAN",
       "Hash": "61e4a10781dd00d7d81dd06ca9b94e95"
     },
-    "metafor": {
-      "Package": "metafor",
-      "Version": "2.4-0",
+    "mathjaxr": {
+      "Package": "mathjaxr",
+      "Version": "1.4-0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "fc6dd065ed5b8cd02047e83695fd3af7"
+      "Hash": "21ec862477d3845843994019cadc4629"
+    },
+    "metafor": {
+      "Package": "metafor",
+      "Version": "2.5-102",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "metafor",
+      "RemoteUsername": "wviechtb",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "aab2de9c46765b7850ef08b9d92045e58b2374e1",
+      "Hash": "7ae84516d131b3d7e4c690bd9775141a"
     },
     "mgcv": {
       "Package": "mgcv",
@@ -498,6 +524,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "bc53006c11a08ba955ccbf85b586875f"
+    },
+    "pbapply": {
+      "Package": "pbapply",
+      "Version": "1.4-3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "52f8028b028076bc3b7ee5d6251abf0d"
     },
     "pillar": {
       "Package": "pillar",
