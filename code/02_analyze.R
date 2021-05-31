@@ -2,6 +2,7 @@
 
 library(here)
 library(tidyverse)
+library(lvmisc)
 library(metafor)
 
 # Read and tidy data ------------------------------------------------------
@@ -30,9 +31,29 @@ data_percentage_change <- data_percentage_change %>%
 # Separate the variables into smaller data.frames
 # HR-pQCT variables
 radius_vBMD <- data_percentage_change %>%
-  filter(outcome == "radius_vBMD")
+  filter(outcome == "radius_vBMD") %>%
+  mutate(study_time = paste(study, time_after_surgery)) %>%
+  # Remove some time points of some studies due to sample sobreposition
+  filter(
+    study_time %!in% c(
+      "Shanbhogue et al. (2017) 12",
+      "Hansen et al. (2020) 24",
+      "Lindeman et al. (2018) 24"
+    )
+  ) %>%
+  select(-study_time)
 tibia_vBMD <- data_percentage_change %>%
-  filter(outcome == "tibia_vBMD")
+  filter(outcome == "tibia_vBMD") %>%
+  mutate(study_time = paste(study, time_after_surgery)) %>%
+  # Remove some time points of some studies due to sample sobreposition
+  filter(
+    study_time %!in% c(
+      "Shanbhogue et al. (2017) 12",
+      "Hansen et al. (2020) 24",
+      "Lindeman et al. (2018) 24"
+    )
+  ) %>%
+  select(-study_time)
 # QCT variables
 LS_vBMD <- data_percentage_change %>%
   filter(outcome == "LS_vBMD")
