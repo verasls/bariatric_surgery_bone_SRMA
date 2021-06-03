@@ -73,6 +73,7 @@ radius_vBMD <- radius_vBMD %>%
     ni = n,
     data = .
   ) %>%
+  arrange(desc(yi)) %>%
   as_tibble()
 
 # Multilevel meta-analysis model
@@ -93,6 +94,7 @@ tibia_vBMD <- tibia_vBMD %>%
     ni = n,
     data = .
   ) %>%
+  arrange(desc(yi)) %>%
   as_tibble()
 
 # Multilevel meta-analysis model
@@ -113,6 +115,7 @@ LS_vBMD <- LS_vBMD %>%
     ni = n,
     data = .
   ) %>%
+  arrange(desc(yi)) %>%
   as_tibble()
 
 # Multilevel meta-analysis model
@@ -133,6 +136,7 @@ TH_vBMD <- TH_vBMD %>%
     ni = n,
     data = .
   ) %>%
+  arrange(desc(yi)) %>%
   as_tibble()
 
 # Multilevel meta-analysis model
