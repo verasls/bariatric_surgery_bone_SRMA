@@ -113,3 +113,31 @@ i2 <- function(data, model) {
   100 * sum(model$sigma2) /
     (sum(model$sigma2) + (model$k - model$p) / sum(diag(P)))
 }
+
+# Other functions ---------------------------------------------------------
+
+# Variance components
+#
+# Calculate I2 and variance distribution for multilevel meta-analysis models
+# and present the values in a data.frame.
+#
+# Args:
+#   model: An object of class `rma.mv`.
+#   site: A character string indicating the skeletal site analysed in
+# the model.
+variance_components <- function(model, site) {
+  var_comp <- dmetar::var.comp(model)[[1]]
+  var_comp <- tibble::tibble(
+    Site = rep(site, 3),
+    Component = c(
+      "Sampling error", "Studies", "Time"
+    ),
+    "% of total variance" = c(var_comp[1, 1], var_comp[3, 1], var_comp[2, 1]),
+    I2 = c(NA, var_comp[3, 2], var_comp[2, 2])
+  )
+  dplyr::mutate(
+    var_comp,
+    I2 = as.numeric(I2),
+    dplyr::across(where(is.numeric), round, 1)
+  )
+}
