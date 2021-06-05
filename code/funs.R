@@ -101,6 +101,30 @@ weights_text <- function(model, x) {
   }
 }
 
+# Build the text showing the regression equation of the meta-regression model
+#
+# Args:
+#   model: The meta-regression model.
+#   mod: A character string indicating the moderator (predictor) variable name.
+#   x, y: The coordinates to plot the text.
+#
+# Obs: only works with simple meta-regression (one moderator/predictor).
+reg_equation <- function(mr, mod, x, y) {
+  b0 <- mr$beta[1]
+  b1 <- mr$beta[2]
+
+  equation <- paste0(
+    "Y = ",
+    ifelse(b0 < 0, "- ", ""),
+    broman::myround(abs(b0), 3),
+    ifelse(b1 < 0, " - ", " + "),
+    broman::myround(abs(b1), 3),
+    " * ", mod
+  )
+
+  text(x, y, font = 1, pos = 2, cex = 0.9, equation)
+}
+
 # Other functions ---------------------------------------------------------
 
 # Variance components
