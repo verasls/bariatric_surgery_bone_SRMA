@@ -144,7 +144,7 @@ tibia_vBMD_model <- rma.mv(
   data = tibia_vBMD
 )
 
-# Analyse heterogeneity ---------------------------------------------------
+# Heterogeneity analysis --------------------------------------------------
 
 models <- list(
   TH_vBMD_model, LS_vBMD_model,
@@ -199,7 +199,7 @@ site_s <- c(
 )
 heterogeneity_s <- map2_dfr(models_s, site_s, variance_components)
 
-# Analyse with standardized mean difference -------------------------------
+# Analyses with standardized mean difference ------------------------------
 
 # Total hip vBMD
 #
@@ -321,6 +321,133 @@ tibia_vBMD_time_model <- rma.mv(
   random = ~ 1 | sample / study,
   mods = ~ time_after_surgery,
   data = tibia_vBMD
+)
+
+# Meta-regression: body mass effect ---------------------------------------
+
+# Build the data frames
+#
+# QCT variables
+#
+# Total hip region has only one study (Bredella et al. 2017) with both
+# body mass and vBMD data and, therefore, cannot be included in this
+# analysis.
+LS_vBMD_body_mass <- data_percentage_change %>%
+  filter(outcome %in% c("LS_vBMD", "body_mass")) %>%
+  pivot_wider(
+    names_from = outcome,
+    values_from = c(mean_percent_change, sd_percent_change)
+  ) %>%
+  select(
+    everything(),
+    body_mass = mean_percent_change_body_mass,
+    - sd_percent_change_body_mass
+  ) %>%
+  filter(
+    !is.na(mean_percent_change_LS_vBMD)
+  ) %>%
+  escalc(
+    measure = "MN",
+    mi = mean_percent_change_LS_vBMD,
+    sdi = sd_percent_change_LS_vBMD,
+    ni = n,
+    data = .
+  ) %>%
+  arrange(desc(yi)) %>%
+  na.omit() %>%
+  as_tibble()
+# HR-pQCT variables
+radius_vBMD_body_mass <- data_percentage_change %>%
+  filter(outcome %in% c("radius_vBMD", "body_mass")) %>%
+  mutate(study_time = paste(study, time_after_surgery)) %>%
+  # Remove some time points of some studies due to sample sobreposition
+  filter(
+    study_time %!in% c(
+      "Shanbhogue et al. (2017) 12",
+      "Hansen et al. (2020) 24",
+      "Lindeman et al. (2018) 24"
+    )
+  ) %>%
+  select(-study_time) %>%
+  pivot_wider(
+    names_from = outcome,
+    values_from = c(mean_percent_change, sd_percent_change)
+  ) %>%
+  select(
+    everything(),
+    body_mass = mean_percent_change_body_mass,
+    - sd_percent_change_body_mass
+  ) %>%
+  filter(
+    !is.na(mean_percent_change_radius_vBMD)
+  ) %>%
+  escalc(
+    measure = "MN",
+    mi = mean_percent_change_radius_vBMD,
+    sdi = sd_percent_change_radius_vBMD,
+    ni = n,
+    data = .
+  ) %>%
+  arrange(desc(yi)) %>%
+  na.omit() %>%
+  as_tibble()
+tibia_vBMD_body_mass <- data_percentage_change %>%
+  filter(outcome %in% c("tibia_vBMD", "body_mass")) %>%
+  mutate(study_time = paste(study, time_after_surgery)) %>%
+  # Remove some time points of some studies due to sample sobreposition
+  filter(
+    study_time %!in% c(
+      "Shanbhogue et al. (2017) 12",
+      "Hansen et al. (2020) 24",
+      "Lindeman et al. (2018) 24"
+    )
+  ) %>%
+  select(-study_time) %>%
+  pivot_wider(
+    names_from = outcome,
+    values_from = c(mean_percent_change, sd_percent_change)
+  ) %>%
+  select(
+    everything(),
+    body_mass = mean_percent_change_body_mass,
+    - sd_percent_change_body_mass
+  ) %>%
+  filter(
+    !is.na(mean_percent_change_tibia_vBMD)
+  ) %>%
+  escalc(
+    measure = "MN",
+    mi = mean_percent_change_tibia_vBMD,
+    sdi = sd_percent_change_tibia_vBMD,
+    ni = n,
+    data = .
+  ) %>%
+  arrange(desc(yi)) %>%
+  na.omit() %>%
+  as_tibble()
+
+# Lumbar spine vBMD
+LS_vBMD_body_mass_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ body_mass,
+  data = LS_vBMD_body_mass
+)
+
+# Radius vBMD
+radius_vBMD_body_mass_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ body_mass,
+  data = radius_vBMD_body_mass
+)
+
+# Tibia vBMD
+tibia_vBMD_body_mass_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ body_mass,
+  data = tibia_vBMD_body_mass
 )
 
 # Save the meta-analysis objects ------------------------------------------
