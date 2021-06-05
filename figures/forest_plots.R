@@ -21,7 +21,7 @@ load(here("output", "ma_objects.rda"))
 
 # Total hip vBMD forest plot -------------------------------------------
 
-make_TH_plot <- function() {
+make_TH_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
   forest(
     TH_vBMD_model,
@@ -82,7 +82,7 @@ make_TH_plot <- function() {
 
 # Lumbar spine vBMD forest plot -------------------------------------------
 
-make_LS_plot <- function() {
+make_LS_forestplot <- function() {
   par(mar = c(2.5, 2, 0.5, 2))
   forest(
     LS_vBMD_model,
@@ -141,7 +141,7 @@ make_LS_plot <- function() {
 
 # Radius vBMD forest plot -------------------------------------------------
 
-make_radius_plot <- function() {
+make_radius_forestplot <- function() {
   par(mar = c(2, 2, 6.5, 2))
   forest(
     radius_vBMD_model,
@@ -201,7 +201,7 @@ make_radius_plot <- function() {
 
 # Tibia vBMD forest plot --------------------------------------------------
 
-make_tibia_plot <- function() {
+make_tibia_forestplot <- function() {
   par(mar = c(2.5, 2, 7, 2))
   forest(
     tibia_vBMD_model,
@@ -260,10 +260,10 @@ make_tibia_plot <- function() {
 
 # Combine and save plots --------------------------------------------------
 
-p1 <- as.ggplot(~ make_TH_plot())
-p2 <- as.ggplot(~ make_LS_plot())
-p3 <- as.ggplot(~ make_radius_plot())
-p4 <- as.ggplot(~ make_tibia_plot())
+p1 <- as.ggplot(~ make_TH_forestplot())
+p2 <- as.ggplot(~ make_LS_forestplot())
+p3 <- as.ggplot(~ make_radius_forestplot())
+p4 <- as.ggplot(~ make_tibia_forestplot())
 agg_png(
   here("figures", "forest_plots.png"),
   width = 25,
