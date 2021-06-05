@@ -101,19 +101,6 @@ weights_text <- function(model, x) {
   }
 }
 
-# Compute the I^2
-#
-# Args:
-#   data: A data.frame or escalc object.
-#   model: An rma object.
-i2 <- function(data, model) {
-  W <- diag(1 / data$vi)
-  X <- model.matrix(model)
-  P <- W - W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W
-  100 * sum(model$sigma2) /
-    (sum(model$sigma2) + (model$k - model$p) / sum(diag(P)))
-}
-
 # Other functions ---------------------------------------------------------
 
 # Variance components
@@ -140,4 +127,32 @@ variance_components <- function(model, site) {
     I2 = as.numeric(I2),
     dplyr::across(where(is.numeric), round, 1)
   )
+}
+
+# Compute the I^2
+#
+# Args:
+#   data: A data.frame or escalc object.
+#   model: An rma object.
+i2 <- function(data, model) {
+  W <- diag(1 / data$vi)
+  X <- model.matrix(model)
+  P <- W - W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W
+  100 * sum(model$sigma2) /
+    (sum(model$sigma2) + (model$k - model$p) / sum(diag(P)))
+}
+
+# Compute the (pseudo) R^2
+#
+# See:
+# López-López, J. A., Marín-Martínez, F., Sánchez-Meca, J.,
+# Van den Noortgate, W., & Viechtbauer, W. (2014). Estimation of the predictive
+# power of the model in mixed-effects meta-regression: A simulation study.
+# British Journal of Mathematical and Statistical Psychology, 67(1), 30–48.
+#
+# Args:
+#   re: A random-effects meta-analysis model.
+#   mr: A mixed-effects meta-regression model.
+r2 <- function(re, mr) {
+  (sum(re$sigma2) - sum(mr$sigma2)) / sum(re$sigma2)
 }
