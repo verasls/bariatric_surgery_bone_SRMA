@@ -52,7 +52,7 @@ radius_CT_thickness <- data_percentage_change %>%
   filter(outcome == "radius_CT_thickness") %>%
   mutate(study_time = paste(study, time_after_surgery)) %>%
   # Remove some time points of some studies due to sample sobreposition
-q filter(study_time != "Hansen et al. (2020) 24") %>%
+ filter(study_time != "Hansen et al. (2020) 24") %>%
   select(-study_time)
 # Trabecular bone variables
 radius_TB_vBMD <- data_percentage_change %>%
