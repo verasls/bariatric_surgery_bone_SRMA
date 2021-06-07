@@ -5,11 +5,13 @@ library(tidyverse)
 library(metafor)
 library(ragg)
 library(ggplotify)
+library(cowplot)
 source(here("code", "funs.R"))
 
 # Read data ---------------------------------------------------------------
 
 load(here("output", "ma_objects.rda"))
+load(here("output", "meta_regression_objects.rda"))
 
 # Obs ---------------------------------------------------------------------
 
