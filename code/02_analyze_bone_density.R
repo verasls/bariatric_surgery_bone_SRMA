@@ -62,7 +62,7 @@ tibia_vBMD <- data_percentage_change %>%
   ) %>%
   select(-study_time)
 
-# Primary analysis --------------------------------------------------------
+# Meta-analysis -----------------------------------------------------------
 
 # Total hip vBMD
 #
@@ -467,5 +467,5 @@ save(
   LS_vBMD_time_model,
   radius_vBMD_time_model,
   tibia_vBMD_time_model,
-  file = here("output", "meta_regression.rda")
+  file = here("output", "meta_regression_objects.rda")
 )
