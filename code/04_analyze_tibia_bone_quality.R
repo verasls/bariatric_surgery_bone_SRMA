@@ -298,3 +298,21 @@ tibia_failure_load_model <- rma.mv(
   random = ~ 1 | sample / study,
   data = tibia_failure_load
 )
+
+# Save the meta-analysis objects ------------------------------------------
+
+if (!dir.exists(here("output"))) {
+  dir.create(here("output"))
+}
+save(
+  tibia_CT_vBMD_model,
+  tibia_CT_porosity_model,
+  tibia_CT_thickness_model,
+  tibia_TB_vBMD_model,
+  tibia_TB_number_model,
+  tibia_TB_separation_model,
+  tibia_TB_thickness_model,
+  tibia_BVTV_model,
+  tibia_failure_load_model,
+  file = here("output", "ma_tibia_objects.rda")
+)

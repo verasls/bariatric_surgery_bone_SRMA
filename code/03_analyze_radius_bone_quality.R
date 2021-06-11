@@ -294,3 +294,21 @@ radius_failure_load_model <- rma.mv(
   random = ~ 1 | sample / study,
   data = radius_failure_load
 )
+
+# Save the meta-analysis objects ------------------------------------------
+
+if (!dir.exists(here("output"))) {
+  dir.create(here("output"))
+}
+save(
+  radius_CT_vBMD_model,
+  radius_CT_porosity_model,
+  radius_CT_thickness_model,
+  radius_TB_vBMD_model,
+  radius_TB_number_model,
+  radius_TB_separation_model,
+  radius_TB_thickness_model,
+  radius_BVTV_model,
+  radius_failure_load_model,
+  file = here("output", "ma_radius_objects.rda")
+)
