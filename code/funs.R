@@ -196,3 +196,20 @@ followup_weighted_mean <- function(data, model) {
     mean = xm, lower_ci = ci_lower, upper_ci = ci_upper
   )
 }
+
+# Get meta-analysis model pooled effect size estimate and confidence intervals
+#
+# Args:
+#   model: An rma object.
+#   site: A character string indicating the skeletal site.
+get_model_estimate <- function(model, site) {
+  m <- as.numeric(model$b)
+  ci_lower <- model$ci.lb
+  ci_upper <- model$ci.ub
+  tibble::tibble(
+    site = site,
+    mean = m,
+    ci_lower = ci_lower,
+    ci_upper = ci_upper
+  )
+}
