@@ -180,3 +180,19 @@ i2 <- function(data, model) {
 r2 <- function(re, mr) {
   (sum(re$sigma2) - sum(mr$sigma2)) / sum(re$sigma2)
 }
+
+# Compute the weighted mean and 95% confidence interval of the follow-up time
+#
+# Args:
+#   data: A data.frame.
+followup_weighted_mean <- function(data, model) {
+  w <- weights(model)
+  x <- data[["time_after_surgery"]]
+  xm <- round(weighted.mean(x, w), 1)
+  se <- sqrt(Hmisc::wtd.var(x, w)) / sqrt(nrow(data))
+  ci_lower <- round(xm - (se * qt(0.975, df = nrow(data) - 1)), 1)
+  ci_upper <- round(xm + (se * qt(0.975, df = nrow(data) - 1)), 1)
+  data.frame(
+    mean = xm, lower_ci = ci_lower, upper_ci = ci_upper
+  )
+}
