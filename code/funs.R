@@ -213,3 +213,20 @@ get_model_estimate <- function(model, site) {
     ci_upper = ci_upper
   )
 }
+
+# Get meta-analysis model pooled effect size estimate and confidence intervals
+# to build a table
+#
+# Args:
+#   model: An rma object.
+get_model_estimate_tb <- function(model) {
+  m <- as.numeric(model$b)
+  ci_lower <- model$ci.lb
+  ci_upper <- model$ci.ub
+  tb <- tibble::tibble(
+    mean = broman::myround(m, 1),
+    ci_lower = broman::myround(ci_lower, 1),
+    ci_upper = broman::myround(ci_upper, 1)
+  )
+  paste0(tb$mean, " (", tb$ci_lower, ", ", tb$ci_upper, ")")
+}
