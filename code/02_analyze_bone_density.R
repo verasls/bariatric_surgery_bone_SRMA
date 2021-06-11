@@ -83,6 +83,8 @@ TH_vBMD_model <- rma.mv(
   random = ~ 1 | sample / study,
   data = TH_vBMD
 )
+# Follow-up weighted mean
+TH_followup <- followup_weighted_mean(TH_vBMD)
 
 # Lumbar spine vBMD
 #
@@ -103,6 +105,8 @@ LS_vBMD_model <- rma.mv(
   random = ~ 1 | sample / study,
   data = LS_vBMD
 )
+# Follow-up weighted mean
+LS_followup <- followup_weighted_mean(LS_vBMD)
 
 # Radius vBMD
 #
@@ -123,6 +127,8 @@ radius_vBMD_model <- rma.mv(
   random = ~ 1 | sample / study,
   data = radius_vBMD
 )
+# Follow-up weighted mean
+radius_followup <- followup_weighted_mean(radius_vBMD)
 
 # Tibia vBMD
 #
@@ -143,6 +149,8 @@ tibia_vBMD_model <- rma.mv(
   random = ~ 1 | sample / study,
   data = tibia_vBMD
 )
+# Follow-up weighted mean
+tibia_followup <- followup_weighted_mean(tibia_vBMD)
 
 # Heterogeneity analysis --------------------------------------------------
 
