@@ -49,6 +49,7 @@ TH_DXA_QCT <- data_percentage_change %>%
   )
 LS_DXA_QCT <- data_percentage_change %>%
   filter(outcome %in% c("LS_vBMD", "LS_aBMD")) %>%
+  filter(study != "Schafer et al. (2015)") %>%
   pivot_wider(
     names_from = outcome,
     values_from = c(n, mean_percent_change, sd_percent_change)
@@ -171,7 +172,7 @@ if (!dir.exists(here("output"))) {
   dir.create(here("output"))
 }
 save(
-  TH_DXA_QCT_model, LS_DXA_QCT_model, radius_DXA_QCT_model
+  TH_DXA_QCT_model, LS_DXA_QCT_model, radius_DXA_QCT_model,
   file = here("output", "ma_DXA_QCT_objects.rda")
 )
 

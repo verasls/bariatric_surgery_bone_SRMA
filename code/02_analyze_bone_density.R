@@ -35,7 +35,8 @@ data_percentage_change <- data_percentage_change %>%
 TH_vBMD <- data_percentage_change %>%
   filter(outcome == "TH_vBMD")
 LS_vBMD <- data_percentage_change %>%
-  filter(outcome == "LS_vBMD")
+  filter(outcome == "LS_vBMD") %>%
+  filter(study != "Schafer et al. (2015)")
 # HR-pQCT variables
 radius_vBMD <- data_percentage_change %>%
   filter(outcome == "radius_vBMD") %>%
@@ -84,7 +85,7 @@ TH_vBMD_model <- rma.mv(
   data = TH_vBMD
 )
 # Follow-up weighted mean
-TH_followup <- followup_weighted_mean(TH_vBMD)
+TH_followup <- followup_weighted_mean(TH_vBMD, TH_vBMD_model)
 
 # Lumbar spine vBMD
 #
@@ -106,7 +107,7 @@ LS_vBMD_model <- rma.mv(
   data = LS_vBMD
 )
 # Follow-up weighted mean
-LS_followup <- followup_weighted_mean(LS_vBMD)
+LS_followup <- followup_weighted_mean(LS_vBMD, LS_vBMD_model)
 
 # Radius vBMD
 #
@@ -128,7 +129,7 @@ radius_vBMD_model <- rma.mv(
   data = radius_vBMD
 )
 # Follow-up weighted mean
-radius_followup <- followup_weighted_mean(radius_vBMD)
+radius_followup <- followup_weighted_mean(radius_vBMD, radius_vBMD_model)
 
 # Tibia vBMD
 #
@@ -150,7 +151,7 @@ tibia_vBMD_model <- rma.mv(
   data = tibia_vBMD
 )
 # Follow-up weighted mean
-tibia_followup <- followup_weighted_mean(tibia_vBMD)
+tibia_followup <- followup_weighted_mean(tibia_vBMD, tibia_vBMD_model)
 
 # Heterogeneity analysis --------------------------------------------------
 
