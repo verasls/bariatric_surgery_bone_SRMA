@@ -301,14 +301,14 @@ if (!dir.exists(here("output"))) {
   dir.create(here("output"))
 }
 save(
-  radius_CT_vBMD_model,
-  radius_CT_porosity_model,
-  radius_CT_thickness_model,
-  radius_TB_vBMD_model,
-  radius_TB_number_model,
-  radius_TB_separation_model,
-  radius_TB_thickness_model,
-  radius_BVTV_model,
-  radius_failure_load_model,
+  radius_CT_vBMD, radius_CT_vBMD_model,
+  radius_CT_porosity, radius_CT_porosity_model,
+  radius_CT_thickness, radius_CT_thickness_model,
+  radius_TB_vBMD, radius_TB_vBMD_model,
+  radius_TB_number, radius_TB_number_model,
+  radius_TB_separation, radius_TB_separation_model,
+  radius_TB_thickness, radius_TB_thickness_model,
+  radius_BVTV, radius_BVTV_model,
+  radius_failure_load, radius_failure_load_model,
   file = here("output", "ma_radius_objects.rda")
 )

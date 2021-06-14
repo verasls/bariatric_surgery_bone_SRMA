@@ -305,14 +305,14 @@ if (!dir.exists(here("output"))) {
   dir.create(here("output"))
 }
 save(
-  tibia_CT_vBMD_model,
-  tibia_CT_porosity_model,
-  tibia_CT_thickness_model,
-  tibia_TB_vBMD_model,
-  tibia_TB_number_model,
-  tibia_TB_separation_model,
-  tibia_TB_thickness_model,
-  tibia_BVTV_model,
-  tibia_failure_load_model,
+  tibia_CT_vBMD, tibia_CT_vBMD_model,
+  tibia_CT_porosity, tibia_CT_porosity_model,
+  tibia_CT_thickness, tibia_CT_thickness_model,
+  tibia_TB_vBMD, tibia_TB_vBMD_model,
+  tibia_TB_number, tibia_TB_number_model,
+  tibia_TB_separation, tibia_TB_separation_model,
+  tibia_TB_thickness, tibia_TB_thickness_model,
+  tibia_BVTV, tibia_BVTV_model,
+  tibia_failure_load, tibia_failure_load_model,
   file = here("output", "ma_tibia_objects.rda")
 )
