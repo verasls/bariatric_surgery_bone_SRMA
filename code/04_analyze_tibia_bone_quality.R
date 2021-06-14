@@ -279,7 +279,7 @@ tibia_BVTV_model <- rma.mv(
   data = tibia_BVTV
 )
 
-# tibia failure load
+# Tibia failure load
 #
 # Calculate the effect size
 tibia_failure_load <- tibia_failure_load %>%
@@ -299,6 +299,80 @@ tibia_failure_load_model <- rma.mv(
   data = tibia_failure_load
 )
 
+# Meta-regression: time effect --------------------------------------------
+
+# Tibia cortical vBMD
+tibia_CT_vBMD_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_CT_vBMD
+)
+
+# Tibia cortical porosity
+tibia_CT_porosity_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_CT_porosity
+)
+
+# Tibia cortical thickness
+tibia_CT_thickness_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_CT_thickness
+)
+
+# Tibia trabecular vBMD
+tibia_TB_vBMD_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_TB_vBMD
+)
+
+# Tibia trabecular number
+tibia_TB_number_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_TB_number
+)
+
+# Tibia trabecular separation
+tibia_TB_separation_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_TB_separation
+)
+
+# Tibia trabecular thickness
+tibia_TB_thickness_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_TB_thickness
+)
+
+# Tibia BVTV
+tibia_BVTV_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_BVTV
+)
+
+# Tibia failure load
+tibia_failure_load_time_model <- rma.mv(
+  yi, vi,
+  random = ~ 1 | sample / study,
+  mods = ~ time_after_surgery,
+  data = tibia_failure_load
+)
+
 # Save the meta-analysis objects ------------------------------------------
 
 if (!dir.exists(here("output"))) {
@@ -315,4 +389,16 @@ save(
   tibia_BVTV, tibia_BVTV_model,
   tibia_failure_load, tibia_failure_load_model,
   file = here("output", "ma_tibia_objects.rda")
+)
+save(
+  tibia_CT_vBMD_time_model,
+  tibia_CT_porosity_time_model,
+  tibia_CT_thickness_time_model,
+  tibia_TB_vBMD_time_model,
+  tibia_TB_number_time_model,
+  tibia_TB_separation_time_model,
+  tibia_TB_thickness_time_model,
+  tibia_BVTV_time_model,
+  tibia_failure_load_time_model,
+  file = here("output", "meta_regression_tibia_objects.rda")
 )
