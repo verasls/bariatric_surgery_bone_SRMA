@@ -272,7 +272,8 @@ make_radius_TB_vBMD_forestplot <- function() {
             radius_TB_vBMD_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(radius_TB_vBMD_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -337,7 +338,8 @@ make_radius_TB_number_forestplot <- function() {
             radius_TB_number_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(radius_TB_number_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -402,7 +404,8 @@ make_radius_TB_separation_forestplot <- function() {
             radius_TB_separation_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(radius_TB_separation_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -467,7 +470,8 @@ make_radius_TB_thickness_forestplot <- function() {
             radius_TB_thickness_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(radius_TB_thickness_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -488,7 +492,7 @@ make_radius_BVTV_forestplot <- function() {
     top = 4
   )
   # X axis label
-  text(11, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
+  text(14, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
   # Plot title
   text(
     -70.5, 6, font = 2, pos = 4, cex = 1,
@@ -517,7 +521,8 @@ make_radius_BVTV_forestplot <- function() {
             digits = 0, format = "f"
           )
           ), "%, ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(radius_BVTV_model$QEp, digits = 3, format = "f"))
       )
     )
   )
@@ -532,7 +537,8 @@ make_radius_BVTV_forestplot <- function() {
             radius_BVTV_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(radius_BVTV_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -597,7 +603,8 @@ make_radius_failure_load_forestplot <- function() {
             radius_failure_load_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(radius_failure_load_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -624,6 +631,6 @@ agg_png(
 plot_grid(
   p1, p2, p3, p4, p5, p6, p7, p8, p9,
   ncol = 1,
-  rel_heights = c(1, 0.9, 0.9, 1, 1, 0.9, 1, 0.5, 1)
+  rel_heights = c(1, 0.9, 0.9, 1, 1, 0.9, 1, 0.45, 1)
 )
 dev.off()

@@ -272,7 +272,8 @@ make_tibia_TB_vBMD_forestplot <- function() {
             tibia_TB_vBMD_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(tibia_TB_vBMD_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -337,7 +338,8 @@ make_tibia_TB_number_forestplot <- function() {
             tibia_TB_number_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(tibia_TB_number_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -402,7 +404,8 @@ make_tibia_TB_separation_forestplot <- function() {
             tibia_TB_separation_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(tibia_TB_separation_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -467,7 +470,8 @@ make_tibia_TB_thickness_forestplot <- function() {
             tibia_TB_thickness_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(tibia_TB_thickness_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -488,7 +492,7 @@ make_tibia_BVTV_forestplot <- function() {
     top = 4
   )
   # X axis label
-  text(11, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
+  text(2, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
   # Plot title
   text(
     -15.1, 5, font = 2, pos = 4, cex = 1,
@@ -506,7 +510,7 @@ make_tibia_BVTV_forestplot <- function() {
   text(6, -1, font = 1, pos = 2, cex = 1, "100.0%")
   # Heterogeneity text
   text(
-    -69.9, -2.1, pos = 4, cex = 0.85,
+    -14.9, -2.1, pos = 4, cex = 0.85,
     bquote(
       paste(
         "Heterogeneity: ",
@@ -517,13 +521,14 @@ make_tibia_BVTV_forestplot <- function() {
             digits = 0, format = "f"
           )
           ), "%, ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(tibia_BVTV_model$QEp, digits = 3, format = "f"))
       )
     )
   )
   # Overall effect text
   text(
-    -69.9, -3.0, pos = 4, cex = 0.85,
+    -14.9, -3.0, pos = 4, cex = 0.85,
     bquote(
       paste(
         "Test for overall effect: ",
@@ -532,7 +537,8 @@ make_tibia_BVTV_forestplot <- function() {
             tibia_BVTV_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(tibia_BVTV_model$pval, digits = 3, format = "f"))
       )
     )
   )
@@ -597,7 +603,8 @@ make_tibia_failure_load_forestplot <- function() {
             tibia_failure_load_model$zval,
             digits = 2, format = "f"
           )), ", ",
-        italic(.("p")), " < 0.001 "
+        italic(.("p")), " = ",
+        .(formatC(tibia_failure_load_model$pval, digits = 3, format = "f"))
       )
     )
   )
