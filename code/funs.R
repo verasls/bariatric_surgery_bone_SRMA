@@ -109,7 +109,7 @@ weights_text <- function(model, x) {
 #   x, y: The coordinates to plot the text.
 #
 # Obs: only works with simple meta-regression (one moderator/predictor).
-reg_equation <- function(mr, mod, x, y) {
+reg_equation <- function(mr, mod, x, y, pos = 2) {
   b0 <- mr$beta[1]
   b1 <- mr$beta[2]
 
@@ -122,7 +122,7 @@ reg_equation <- function(mr, mod, x, y) {
     " * ", mod
   )
 
-  text(x, y, font = 1, pos = 2, cex = 0.9, equation)
+  text(x, y, font = 1, pos = pos, cex = 0.9, equation)
 }
 
 # Other functions ---------------------------------------------------------
