@@ -684,10 +684,10 @@
     },
     "metafor": {
       "Package": "metafor",
-      "Version": "3.0-1",
+      "Version": "3.0-2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "3e3864b16740d4f6aaf4a3f320d25b41"
+      "Hash": "b598da1155b3f86b380c1a32f6f3b224"
     },
     "mgcv": {
       "Package": "mgcv",
