@@ -67,7 +67,7 @@ make_LS_regplot <- function() {
   # Plot p and R^2 values
   text(
     30, 3.7, font = 1, pos = 2, cex = 0.9,
-    bquote(italic(p) == .009 * ";" ~ R^2 == "0.25")
+    bquote(italic(p) == .009 * ";" ~ R^2 == "0.18")
   )
 }
 

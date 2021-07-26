@@ -34,20 +34,20 @@ make_TH_forestplot <- function() {
     top = 4
   )
   # X axis label
-  text(11, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
+  text(11, -5.4, font = 1, pos = 2, cex = 1, "Mean percentage change")
   # Plot title
   text(
-    -70.5, 6, font = 2, pos = 4, cex = 1,
+    -70.5, 7.2, font = 2, pos = 4, cex = 1,
     "Total hip volumetric bone mineral density"
   )
   # Follow-up time column
-  text(-26, 5, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
+  text(-26, 6, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
   followup_text(TH_vBMD, -27)
   # Sample size column
-  text(-22, 5, font = 2, pos = 2, cex = 1, "n")
+  text(-22, 6, font = 2, pos = 2, cex = 1, "n")
   n_text(TH_vBMD, -22)
   # Weight column
-  text(34, 5, font = 2, pos = 2, cex = 1, "Weight")
+  text(34, 6, font = 2, pos = 2, cex = 1, "Weight")
   weights_text(TH_vBMD_model, 34)
   text(34, -1, font = 1, pos = 2, cex = 1, "100.0%")
   # Heterogeneity text
@@ -95,20 +95,20 @@ make_LS_forestplot <- function() {
     top = 4
   )
   # X axis label
-  text(15, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
+  text(15, -5.2, font = 1, pos = 2, cex = 1, "Mean percentage change")
   # Plot title
   text(
-    -70.5, 12.2, font = 2, pos = 4, cex = 1,
+    -70.5, 13.2, font = 2, pos = 4, cex = 1,
     "Lumbar spine volumetric bone mineral density"
   )
   # Follow-up time column
-  text(-26, 11, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
+  text(-26, 12, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
   followup_text(LS_vBMD, -27)
   # Sample size column
-  text(-22, 11, font = 2, pos = 2, cex = 1, "n")
+  text(-22, 12, font = 2, pos = 2, cex = 1, "n")
   n_text(LS_vBMD, -22)
   # Weight column
-  text(34, 11, font = 2, pos = 2, cex = 1, "Weight")
+  text(34, 12, font = 2, pos = 2, cex = 1, "Weight")
   weights_text(LS_vBMD_model, 34)
   text(34, -1, font = 1, pos = 2, cex = 1, "100.0%")
   # Heterogeneity text
@@ -154,7 +154,7 @@ make_radius_forestplot <- function() {
     top = 0.5
   )
   # X axis label
-  text(2, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
+  text(2, -5.2, font = 1, pos = 2, cex = 1, "Mean percentage change")
   # Plot title
   text(
     -65.5, 14.5, font = 2, pos = 4, cex = 1,
@@ -214,7 +214,7 @@ make_tibia_forestplot <- function() {
     top = 0.5
   )
   # X axis label
-  text(4, -5, font = 1, pos = 2, cex = 1, "Mean percentage change")
+  text(4, -5.2, font = 1, pos = 2, cex = 1, "Mean percentage change")
   # Plot title
   text(
     -65.5, 13.5, font = 2, pos = 4, cex = 1,
