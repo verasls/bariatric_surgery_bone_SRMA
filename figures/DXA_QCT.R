@@ -28,16 +28,18 @@ DXA_QCT_plot <- ggplot(plot_df) +
   geom_vline(xintercept = 0, linetype = "dotted") +
   scale_x_continuous(
     limits = c(-15, 15),
-    breaks = seq(-15, 15, 5)
+    breaks = seq(-15, 15, 5),
+    labels = function(x) paste0(x, "%")
   ) +
   theme_classic() +
   theme(
     axis.line.y = element_blank(),
     axis.ticks.y = element_blank(),
     axis.title.y = element_blank(),
-    axis.text.y = element_text(size = 12)
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(size = 8)
   ) +
-  xlab("Higher decrease DXA                     Higher decrease QCT")
+  xlab("vBMD decreases overestimated by DXA       vBMD decreases underestimated by DXA")
 
 # Save plot ---------------------------------------------------------------
 
