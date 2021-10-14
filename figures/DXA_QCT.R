@@ -39,7 +39,7 @@ DXA_QCT_plot <- ggplot(plot_df) +
     axis.text.y = element_text(size = 10),
     axis.title.x = element_text(size = 8)
   ) +
-  xlab("vBMD decreases overestimated by DXA       vBMD decreases underestimated by DXA")
+  xlab("vBMD decreases overestimated by DXA                vBMD decreases underestimated by DXA")
 
 # Save plot ---------------------------------------------------------------
 
