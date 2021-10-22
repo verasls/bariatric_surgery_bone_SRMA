@@ -544,7 +544,7 @@ make_radius_BVTV_forestplot <- function() {
   )
 }
 
-# Radius trabecular failure load ------------------------------------------
+# Radius failure load -----------------------------------------------------
 
 make_radius_failure_load_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -563,7 +563,7 @@ make_radius_failure_load_forestplot <- function() {
   # Plot title
   text(
     -80.5, 14, font = 2, pos = 4, cex = 1,
-    "Radius trabecular failure load"
+    "Radius failure load"
   )
   # Follow-up time column
   text(-36, 13, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")

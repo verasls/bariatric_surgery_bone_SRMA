@@ -19,7 +19,7 @@ load(here("output", "ma_tibia_objects.rda"))
 # transformation was done to achieve a better control in the plot grid using
 # {cowplot}.
 
-# tibia cortical vBMD forest plot -------------------------------------------
+# Tibia cortical vBMD forest plot -------------------------------------------
 
 make_tibia_CT_vBMD_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -82,7 +82,7 @@ make_tibia_CT_vBMD_forestplot <- function() {
   )
 }
 
-# tibia cortical porosity ------------------------------------------------
+# Tibia cortical porosity ------------------------------------------------
 
 make_tibia_CT_porosity_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -148,7 +148,7 @@ make_tibia_CT_porosity_forestplot <- function() {
   )
 }
 
-# tibia cortical thickness -----------------------------------------------
+# Tibia cortical thickness -----------------------------------------------
 
 make_tibia_CT_thickness_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -213,7 +213,7 @@ make_tibia_CT_thickness_forestplot <- function() {
   )
 }
 
-# tibia trabecular volumetric bone mineral density -----------------------
+# Tibia trabecular volumetric bone mineral density -----------------------
 
 make_tibia_TB_vBMD_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -279,7 +279,7 @@ make_tibia_TB_vBMD_forestplot <- function() {
   )
 }
 
-# tibia trabecular number ------------------------------------------------
+# Tibia trabecular number ------------------------------------------------
 
 make_tibia_TB_number_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -345,7 +345,7 @@ make_tibia_TB_number_forestplot <- function() {
   )
 }
 
-# tibia trabecular separation --------------------------------------------
+# Tibia trabecular separation --------------------------------------------
 
 make_tibia_TB_separation_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -411,7 +411,7 @@ make_tibia_TB_separation_forestplot <- function() {
   )
 }
 
-# tibia trabecular thickness --------------------------------------------
+# Tibia trabecular thickness --------------------------------------------
 
 make_tibia_TB_thickness_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -477,7 +477,7 @@ make_tibia_TB_thickness_forestplot <- function() {
   )
 }
 
-# tibia trabecular bone volume fraction ----------------------------------
+# Tibia trabecular bone volume fraction ----------------------------------
 
 make_tibia_BVTV_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -544,7 +544,7 @@ make_tibia_BVTV_forestplot <- function() {
   )
 }
 
-# tibia trabecular failure load ------------------------------------------
+# Tibia failure load ------------------------------------------------------
 
 make_tibia_failure_load_forestplot <- function() {
   par(mar = c(3.5, 2, 1, 2))
@@ -563,7 +563,7 @@ make_tibia_failure_load_forestplot <- function() {
   # Plot title
   text(
     -80.5, 13, font = 2, pos = 4, cex = 1,
-    "Tibia trabecular failure load"
+    "Tibia failure load"
   )
   # Follow-up time column
   text(-36, 12, font = 2, pos = 2, cex = 1, "Follow-up (mo.)")
