@@ -29,19 +29,21 @@ make_TH_regplot <- function() {
   par(mar = c(2, 3, 1, 1))
   regplot(
     TH_vBMD_time_model,
+    mod = "time_after_surgery",
     shade = "gray95",
     xlab = "Time after surgery (months)",
     ylab = "Mean of total hip vBMD \n change post-RYGB (%)",
-    xlim = c(0, 40),
-    ylim = c(-15, 6),
+    xlim = c(0, 90),
+    ylim = c(-25, 0),
     bty = "l"
   )
-  axis(side = 1, at = seq(0, 40, 10))
+  axis(side = 1, at = seq(0, 90, 10))
+  axis(side = 2, at = seq(-25, 0, 5))
   # Plot regression equation text
-  reg_equation(TH_vBMD_time_model, "time", 40, 5.4)
+  reg_equation(TH_vBMD_time_model, "time", 90, 0)
   # Plot p and R^2 values
   text(
-    40, 3.9, font = 1, pos = 2, cex = 0.9,
+    90, -1.5, font = 1, pos = 2, cex = 0.9,
     bquote(italic(p) == .698 * ";" ~ R^2 == "0.00")
   )
 }
@@ -55,18 +57,21 @@ make_LS_regplot <- function() {
   par(mar = c(2, 3, 1, 1))
   regplot(
     LS_vBMD_time_model,
+    mod = "time_after_surgery",
     shade = "gray95",
     xlab = "Time after surgery (months)",
     ylab = "Mean of lumbar spine vBMD \n change post-RYGB (%)",
-    xlim = c(0, 30),
+    xlim = c(0, 90),
+    ylim = c(-25, 0),
     bty = "l"
   )
-  axis(side = 1, at = seq(0, 30, 10))
+  axis(side = 1, at = seq(0, 90, 10))
+  axis(side = 2, at = seq(-25, 0, 5))
   # Plot regression equation text
-  reg_equation(LS_vBMD_time_model, "time", 30, 5)
+  reg_equation(LS_vBMD_time_model, "time", 90, 0)
   # Plot p and R^2 values
   text(
-    30, 3.7, font = 1, pos = 2, cex = 0.9,
+    90, -1.5, font = 1, pos = 2, cex = 0.9,
     bquote(italic(p) == .009 * ";" ~ R^2 == "0.18")
   )
 }
@@ -80,18 +85,21 @@ make_radius_regplot <- function() {
   par(mar = c(2, 3, 1, 1))
   regplot(
     radius_vBMD_time_model,
+    mod = "time_after_surgery",
     shade = "gray95",
     xlab = "Time after surgery (months)",
     ylab = "Mean of radius vBMD \n change post-RYGB (%)",
     xlim = c(0, 90),
+    ylim = c(-25, 0),
     bty = "l"
   )
   axis(side = 1, at = seq(0, 90, 10))
+  axis(side = 2, at = seq(-25, 0, 5))
   # Plot regression equation text
-  reg_equation(radius_vBMD_time_model, "time", 90, 2)
+  reg_equation(radius_vBMD_time_model, "time", 90, 0)
   # Plot p and R^2 values
   text(
-    90, 0, font = 1, pos = 2, cex = 0.9,
+    90, -1.5, font = 1, pos = 2, cex = 0.9,
     bquote(italic(p) < .001 * ";" ~ R^2 == .84)
   )
 }
@@ -105,13 +113,16 @@ make_tibia_regplot <- function() {
   par(mar = c(2, 3, 1, 1))
   regplot(
     tibia_vBMD_time_model,
+    mod = "time_after_surgery",
     shade = "gray95",
     xlab = "Time after surgery (months)",
     ylab = "Mean of tibia vBMD \n change post-RYGB (%)",
     xlim = c(0, 90),
+    ylim = c(-25, 0),
     bty = "l"
   )
   axis(side = 1, at = seq(0, 90, 10))
+  axis(side = 2, at = seq(-25, 0, 5))
   # Plot regression equation text
   reg_equation(tibia_vBMD_time_model, "time", 90, 0)
   # Plot p and R^2 values
