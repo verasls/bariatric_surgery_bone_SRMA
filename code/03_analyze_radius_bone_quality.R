@@ -295,80 +295,6 @@ radius_failure_load_model <- rma.mv(
   data = radius_failure_load
 )
 
-# Meta-regression: time effect --------------------------------------------
-
-# Radius cortical vBMD
-radius_CT_vBMD_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_CT_vBMD
-)
-
-# Radius cortical porosity
-radius_CT_porosity_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_CT_porosity
-)
-
-# Radius cortical thickness
-radius_CT_thickness_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_CT_thickness
-)
-
-# Radius trabecular vBMD
-radius_TB_vBMD_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_TB_vBMD
-)
-
-# Radius trabecular number
-radius_TB_number_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_TB_number
-)
-
-# Radius trabecular separation
-radius_TB_separation_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_TB_separation
-)
-
-# Radius trabecular thickness
-radius_TB_thickness_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_TB_thickness
-)
-
-# Radius BVTV
-radius_BVTV_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_BVTV
-)
-
-# Radius failure load
-radius_failure_load_time_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
-  data = radius_failure_load
-)
-
 # Save the meta-analysis objects ------------------------------------------
 
 if (!dir.exists(here("output"))) {
@@ -385,16 +311,4 @@ save(
   radius_BVTV, radius_BVTV_model,
   radius_failure_load, radius_failure_load_model,
   file = here("output", "ma_radius_objects.rda")
-)
-save(
-  radius_CT_vBMD_time_model,
-  radius_CT_porosity_time_model,
-  radius_CT_thickness_time_model,
-  radius_TB_vBMD_time_model,
-  radius_TB_number_time_model,
-  radius_TB_separation_time_model,
-  radius_TB_thickness_time_model,
-  radius_BVTV_time_model,
-  radius_failure_load_time_model,
-  file = here("output", "meta_regression_radius_objects.rda")
 )
