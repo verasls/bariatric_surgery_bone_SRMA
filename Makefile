@@ -23,9 +23,10 @@ output/ma_tibia_objects.rda output/meta_regression_tibia_objects.rda: data/data_
 	R CMD BATCH code/04_analyze_tibia_bone_quality.R
 
 output/ma_DXA_QCT_objects.rda: data/data_percentage_change.rda code/05_compare_DXA_QCT.R code/funs.R
+	R CMD BATCH code/05_compare_DXA_QCT.R
 
 ## figures  : Generates all figures
-figures: figures/forest_plots.png figures/regplots.png figures/forest_plots_radius_bone_quality.png figures/forest_plots_tibia_bone_quality.png figures/regplots_radius_bone_quality.png figures/regplots_tibia_bone_quality.png figures/DXA_QCT.png
+figures: figures/forest_plots.png figures/regplots.png figures/forest_plots_radius_bone_quality.png figures/forest_plots_tibia_bone_quality.png figures/DXA_QCT.png
 
 figures/forest_plots.png: output/ma_objects.rda figures/forest_plots.R code/funs.R
 	R CMD BATCH figures/forest_plots.R
@@ -38,12 +39,6 @@ figures/forest_plots_radius_bone_quality.png: output/ma_radius_objects.rda figur
 
 figures/forest_plots_tibia_bone_quality.png: output/ma_tibia_objects.rda figures/forest_plot_tibia_bone_quality.R code/funs.R
 	R CMD BATCH figures/forest_plot_tibia_bone_quality.R
-
-figures/regplots_radius_bone_quality.png: output/ma_radius_objects.rda output/meta_regression_radius_objects.rda figures/regression_plots_radius_bone_quality.R code/funs.R
-	R CMD BATCH figures/regression_plots_radius_bone_quality.R
-
-figures/regplots_tibia_bone_quality.png: output/ma_tibia_objects.rda output/meta_regression_tibia_objects.rda figures/regression_plots_tibia_bone_quality.R code/funs.R
-	R CMD BATCH figures/regression_plots_tibia_bone_quality.R
 
 figures/DXA_QCT.png: output/ma_DXA_QCT_objects.rda figures/DXA_QCT.R code/funs.R
 	R CMD BATCH figures/DXA_QCT.R
