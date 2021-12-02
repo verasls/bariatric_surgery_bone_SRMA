@@ -208,103 +208,13 @@ site_s <- c(
 )
 heterogeneity_s <- map2_dfr(models_s, site_s, variance_components)
 
-# Analyses with standardized mean difference ------------------------------
-
-# Total hip vBMD
-#
-# Calculate the effect size
-TH_vBMD_SMD <- TH_vBMD %>%
-  mutate(m2i = 0, sd2i = 0, ri = 0) %>%
-  select(-c(yi, vi)) %>%
-  escalc(
-    measure = "SMCC",
-    m1i = mean_percent_change,
-    sd1i = sd_percent_change,
-    m2i = m2i, sd2i = sd2i,
-    ni = n, ri = ri,
-    data = .
-  ) %>%
-  as_tibble()
-# Multilevel meta-analysis model
-TH_vBMD_SMD_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  data = TH_vBMD_SMD
-)
-
-# Lumbar spine vBMD
-#
-# Calculate the effect size
-LS_vBMD_SMD <- LS_vBMD %>%
-  select(-c(yi, vi)) %>%
-  mutate(m2i = 0, sd2i = 0, ri = 0) %>%
-  escalc(
-    measure = "SMCC",
-    m1i = mean_percent_change,
-    sd1i = sd_percent_change,
-    m2i = m2i, sd2i = sd2i,
-    ni = n, ri = ri,
-    data = .
-  ) %>%
-  as_tibble()
-# Multilevel meta-analysis model
-LS_vBMD_SMD_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  data = LS_vBMD_SMD
-)
-
-# Radius vBMD
-#
-# Calculate the effect size
-radius_vBMD_SMD <- radius_vBMD %>%
-  select(-c(yi, vi)) %>%
-  mutate(m2i = 0, sd2i = 0, ri = 0) %>%
-  escalc(
-    measure = "SMCC",
-    m1i = mean_percent_change,
-    sd1i = sd_percent_change,
-    m2i = m2i, sd2i = sd2i,
-    ni = n, ri = ri,
-    data = .
-  ) %>%
-  as_tibble()
-# Multilevel meta-analysis model
-radius_vBMD_SMD_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  data = radius_vBMD_SMD
-)
-
-# Tibia vBMD
-#
-# Calculate the effect size
-tibia_vBMD_SMD <- tibia_vBMD %>%
-  select(-c(yi, vi)) %>%
-  mutate(m2i = 0, sd2i = 0, ri = 0) %>%
-  escalc(
-    measure = "SMCC",
-    m1i = mean_percent_change,
-    sd1i = sd_percent_change,
-    m2i = m2i, sd2i = sd2i,
-    ni = n, ri = ri,
-    data = .
-  ) %>%
-  as_tibble()
-# Multilevel meta-analysis model
-tibia_vBMD_SMD_model <- rma.mv(
-  yi, vi,
-  random = ~ 1 | sample / study,
-  data = tibia_vBMD_SMD
-)
-
 # Meta-regression: time effect --------------------------------------------
 
 # Total hip vBMD
 TH_vBMD_time_model <- rma.mv(
   yi, vi,
   random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
+  mods = ~ time_after_surgery - 1,
   data = TH_vBMD
 )
 
@@ -312,7 +222,7 @@ TH_vBMD_time_model <- rma.mv(
 LS_vBMD_time_model <- rma.mv(
   yi, vi,
   random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
+  mods = ~ time_after_surgery - 1,
   data = LS_vBMD
 )
 
@@ -320,7 +230,7 @@ LS_vBMD_time_model <- rma.mv(
 radius_vBMD_time_model <- rma.mv(
   yi, vi,
   random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
+  mods = ~ time_after_surgery - 1,
   data = radius_vBMD
 )
 
@@ -328,7 +238,7 @@ radius_vBMD_time_model <- rma.mv(
 tibia_vBMD_time_model <- rma.mv(
   yi, vi,
   random = ~ 1 | sample / study,
-  mods = ~ time_after_surgery,
+  mods = ~ time_after_surgery - 1,
   data = tibia_vBMD
 )
 
