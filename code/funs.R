@@ -110,14 +110,11 @@ weights_text <- function(model, x) {
 #
 # Obs: only works with simple meta-regression (one moderator/predictor).
 reg_equation <- function(mr, mod, x, y, pos = 2) {
-  b0 <- mr$beta[1]
-  b1 <- mr$beta[2]
+  b1 <- mr$beta[1]
 
   equation <- paste0(
     "Y = ",
-    ifelse(b0 < 0, "- ", ""),
-    broman::myround(abs(b0), 3),
-    ifelse(b1 < 0, " - ", " + "),
+    ifelse(b1 < 0, "- ", ""),
     broman::myround(abs(b1), 3),
     " * ", mod
   )
