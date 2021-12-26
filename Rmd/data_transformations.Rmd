@@ -10,8 +10,8 @@ output:
       collapsed: true
     highlight: tango
     df_print: paged
-editor_options: 
-  chunk_output_type: console
+bibliography: bibliography.bib
+csl: nlm.csl
 ---
 
 ```{r source, eval = TRUE, echo = FALSE, include = FALSE}
@@ -35,7 +35,7 @@ $$ \bar{X} = \frac{Q_1 + \tilde{X} + Q_3}{3} $$
 
 Where $\bar{X}$ is the sample mean, $\tilde{X}$ is the median and $Q_1$ and $Q_3$ are the 1st and 3rd quartiles, respectively.
 
-This transformation was proposed in the paper Wan et al. BMC Medical Research Methodology 2014, 14:135.
+This transformation was proposed in a paper by Wan and colleagues [@Wan2014].
 
 ## Dispersion measures
 
@@ -53,7 +53,7 @@ $$ s = \frac{Q_3 - Q_1}{2\phi^{-1}(\frac{0.75n-0.125}{n+0.25})} $$
 
 Where $s$ is the standard deviation, $Q_1$ and $Q_3$ are the 1st and 3rd quartiles, respectively, $n$ is the sample size and $\phi{-1}$ is the inverse of the quantile function of the normal distribution.
 
-This transformation was proposed in the paper Wan et al. BMC Medical Research Methodology 2014, 14:135.
+This transformation was also proposed by Wan et al. [@Wan2014]
 
 ### From the confidence interval to the standard deviation
 
@@ -85,6 +85,8 @@ $$ s_{mean\ change} = \sqrt{s^2_{pre} + s^2_{post} - 2 \cdot r \cdot s_{pre} \cd
 
 Where $s_{\%\ change}$ is the standard deviation of the mean percentage change, $s_{mean\ change}$ is the standard deviation of the absolute mean change, $s_{pre}$ and $s_{post}$ are the standard deviation of the pre and post scores, respectively, and $r$ is the correlation coefficient between the pre and post scores.
 
+These transformations were done accordingly to the procedures described by Shams-White et al. [@Shams-White2017]
+
 Below is a list of the variables, per study and time after surgery, that needed this transformation.
 
 ```{r abs_to_pct, echo = FALSE}
@@ -93,33 +95,10 @@ data_percentage_change_cmp %>%
     Study = id,
     `Time after surgery` = time_after_surgery,
     Variable = outcome
-  )
-```
-
-# Transformations to absolute change
-
-As with the percentage change, to use the absolute change, its mean and standard deviation is needed.
-
-To compute the mean absolute change, simply:
-
-$$ \bar{X}_{mean\ change} = \bar{X}_{post} - \bar{X}_{pre} $$
-
-Where $\bar{X}_{mean\ change}$, $\bar{X}_{pre}$ and $\bar{X}_{post}$ are the mean absolute change and the means of the pre and post scores, respectively.
-
-The computation of the standard deviation of the mean absolute change was already defined in the previous section.
-
-Below is a list of the variables, per study and time after surgery, that needed this transformation.
-
-```{r abs_to_chn, echo = FALSE}
-abs_to_chn <- data %>%
-  filter(
-    !is.na(mean) | !is.na(sd) |
-    !is.na(median) | !is.na(iqr_lower) | !is.na(iqr_upper)
   ) %>%
-  select(
-    Study = id,
-    `Time after surgery` = time_after_surgery,
-    Variable = outcome
+  filter(
+    Variable %!in% c("body_mass", "BMI", "fat_mass", "lean_mass", "age")
   )
-abs_to_chn
 ```
+
+# References
