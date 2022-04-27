@@ -26,22 +26,22 @@ output/ma_DXA_QCT_objects.rda: data/data_percentage_change.rda code/05_compare_D
 	R CMD BATCH code/05_compare_DXA_QCT.R
 
 ## figures  : Generates all figures
-figures: figures/forest_plots.png figures/regplots.png figures/forest_plots_radius_bone_quality.png figures/forest_plots_tibia_bone_quality.png figures/DXA_QCT.png
+figures: figures/fig2.tiff figures/fig3.tiff figures/fig4.tiff figures/fig5.tiff figures/fig6.tiff
 
-figures/forest_plots.png: output/ma_objects.rda figures/forest_plots.R code/funs.R
-	R CMD BATCH figures/forest_plots.R
+figures/fig2.tiff: output/ma_objects.rda figures/fig2.R code/funs.R
+	R CMD BATCH figures/fig2.R
 
-figures/regplots.png: output/ma_objects.rda output/meta_regression_objects.rda figures/regression_plot.R code/funs.R
-	R CMD BATCH figures/regression_plot.R
+figures/fig3.tiff: output/ma_objects.rda output/meta_regression_objects.rda figures/fig3.R code/funs.R
+	R CMD BATCH figures/fig3.R
 
-figures/forest_plots_radius_bone_quality.png: output/ma_radius_objects.rda figures/forest_plot_radius_bone_quality.R code/funs.R
-	R CMD BATCH figures/forest_plot_radius_bone_quality.R
+figures/fig4.tiff: output/ma_radius_objects.rda figures/fig4.R code/funs.R
+	R CMD BATCH figures/fig4.R
 
-figures/forest_plots_tibia_bone_quality.png: output/ma_tibia_objects.rda figures/forest_plot_tibia_bone_quality.R code/funs.R
-	R CMD BATCH figures/forest_plot_tibia_bone_quality.R
+figures/fig5.tiff: output/ma_tibia_objects.rda figures/fig5.R code/funs.R
+	R CMD BATCH figures/fig5.R
 
-figures/DXA_QCT.png: output/ma_DXA_QCT_objects.rda figures/DXA_QCT.R code/funs.R
-	R CMD BATCH figures/DXA_QCT.R
+figures/fig6.tiff: output/ma_DXA_QCT_objects.rda figures/fig6.R code/funs.R
+	R CMD BATCH figures/fig6.R
 
 ## install  : Installs all necessary packages
 install:
