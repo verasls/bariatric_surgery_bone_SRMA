@@ -264,8 +264,8 @@ p1 <- as.ggplot(~ make_TH_forestplot())
 p2 <- as.ggplot(~ make_LS_forestplot())
 p3 <- as.ggplot(~ make_radius_forestplot())
 p4 <- as.ggplot(~ make_tibia_forestplot())
-agg_png(
-  here("figures", "forest_plots.png"),
+agg_tiff(
+  here("figures", "fig2.tiff"),
   width = 25,
   height = 30,
   units = "cm",

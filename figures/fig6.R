@@ -43,8 +43,8 @@ DXA_QCT_plot <- ggplot(plot_df) +
 
 # Save plot ---------------------------------------------------------------
 
-agg_png(
-  here("figures", "DXA_QCT.png"),
+agg_tiff(
+  here("figures", "fig6.tiff"),
   width = 12,
   height = 5,
   units = "cm",

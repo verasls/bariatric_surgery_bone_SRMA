@@ -138,8 +138,8 @@ p1 <- as.ggplot(~ make_TH_regplot())
 p2 <- as.ggplot(~ make_LS_regplot())
 p3 <- as.ggplot(~ make_radius_regplot())
 p4 <- as.ggplot(~ make_tibia_regplot())
-agg_png(
-  here("figures", "regplots.png"),
+agg_tiff(
+  here("figures", "fig3.tiff"),
   width = 23,
   height = 20,
   units = "cm",

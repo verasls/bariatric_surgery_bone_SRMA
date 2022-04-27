@@ -621,8 +621,8 @@ p6 <- as.ggplot(~ make_tibia_TB_separation_forestplot())
 p7 <- as.ggplot(~ make_tibia_TB_thickness_forestplot())
 p8 <- as.ggplot(~ make_tibia_BVTV_forestplot())
 p9 <- as.ggplot(~ make_tibia_failure_load_forestplot())
-agg_png(
-  here("figures", "forest_plots_tibia_bone_quality.png"),
+agg_tiff(
+  here("figures", "fig5.tiff"),
   width = 25,
   height = 90,
   units = "cm",
